@@ -2,6 +2,7 @@ const { Toolkit } = require('actions-toolkit')
 const fm = require('front-matter')
 const nunjucks = require('nunjucks')
 const dateFilter = require('nunjucks-date-filter')
+const weekNum = require('theweeknum')
 
 function listToArray (list) {
   if (!list) return []
@@ -15,7 +16,8 @@ Toolkit.run(async tools => {
 
   const templateVariables = {
     ...tools.context,
-    date: Date.now()
+    date: Date.now(),
+    week: weekNum()
   }
 
   // Get the file
