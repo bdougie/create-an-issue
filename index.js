@@ -17,7 +17,7 @@ Toolkit.run(async tools => {
   const templateVariables = {
     ...tools.context,
     date: Date.now(),
-    week: weekNum()
+    weekNumber: weekNum()
   }
 
   // Get the file
