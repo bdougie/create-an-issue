@@ -6,16 +6,20 @@
 
 This GitHub Action creates a new issue based on an issue template file. Here's an example workflow that creates a new issue any time you push a commit:
 
-```workflow
-workflow "Create an issue on push" {
-  on = "push"
-  resolves = ["Create issue"]
-}
+```yml
+on: push
+name: Create an issue on push
+jobs:
+  createIssue:
+    name: Create issue
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Create issue
+      uses: JasonEtco/create-an-issue@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-action "Create issue" {
-  uses = "JasonEtco/create-an-issue@master"
-  secrets = ["GITHUB_TOKEN"]
-}
 ```
 
 This reads from the `.github/ISSUE_TEMPLATE.md` file. This file should have front matter to help construct the new issue:

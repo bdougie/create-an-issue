@@ -1,0 +1,25 @@
+on: push
+name: Test my code
+jobs:
+  npmCi:
+    name: npm ci
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: npm ci
+      uses: docker://node:alpine
+      with:
+        entrypoint: npm
+        args: ci
+    - name: npm test
+      uses: docker://node:alpine
+      with:
+        entrypoint: npm
+        args: test
+    - name: codecov
+      uses: docker://node
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        entrypoint: npx
+        args: codecov
